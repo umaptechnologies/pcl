@@ -1,0 +1,44 @@
+import build_helper
+
+sources = [
+    'pcl_python.cpp'
+]
+
+libs = [
+    'pcl_2d',
+    'pcl_common',
+    'pcl_features',
+    'pcl_filters',
+    'pcl_io_ply',
+    'pcl_io',
+    'pcl_kdtree',
+    'pcl_keypoints',
+    'pcl_ml',
+    'pcl_octree',
+    'pcl_outofcore',
+    'pcl_people',
+    'pcl_recognition',
+    'pcl_registration',
+    'pcl_sample_consensus',
+    'pcl_search',
+    'pcl_segmentation',
+    'pcl_stereo',
+    'pcl_surface',
+    'pcl_tracking',
+    'pcl_visualization',
+    'boost_python',
+]
+
+includes = [
+    '/usr/include/python2.7',
+    '/usr/local/include/pcl-1.8',
+    '/usr/include/eigen3'
+]
+
+env = Environment()
+env.Append(LIBS = libs)
+env.Append(CPPPATH = includes)
+
+sources = build_helper.set_build_directory(VariantDir, '#.build/python', sources)
+python_bindings = env.SharedLibrary(target = 'pcl_python', source = sources)
+env.Alias('python_bindings', python_bindings)
